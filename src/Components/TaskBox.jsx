@@ -7,11 +7,9 @@ import { createTheme } from '@mui/material';
 import AddTaskBox from './AddTaskBox';
 
 
-
-
 const TaskBox = () => {
   const [isComponentVisible, setIsComponentVisible] = useState(false)
-    const [taskList , setTaskList] = useState({'Task1': 'task1 Time','task2' : 'task2 Time','task3' : 'task3 Time','task4' : 'task4 Time','task5' : 'task5 Time',})
+    const [taskList , setTaskList] = useState([])
     const theme = createTheme({
       palette:{
         primary:{
@@ -28,14 +26,24 @@ const TaskBox = () => {
      setIsComponentVisible(true)
     }
     const deleteTask = (taskName) => {
-      const updatedTaskList = {... taskList};
-      delete updatedTaskList[taskName]
+      const updatedTaskList = taskList.filter((task) => task.name !== taskName);
       setTaskList(updatedTaskList)
     }
+    const checkisTaskAdded = (isAdded) => {
+      if(!isAdded){
+        setIsComponentVisible(false)
+      }
+    }
+    const getTaskData = (data) => {
+      const updatedTaskList = taskList.concat(data)
+      setTaskList(updatedTaskList)
+      console.log('updated array'+ updatedTaskList)
+      console.log(taskList)
+    } 
   return (
     
     <div>
-      <div className=' bg-white flex rounded-xl flex-col p-7 -mt-56'>
+      <div className=' bg-white flex rounded-xl flex-col p-7 -mt-56 shadow-gray-700 shadow-lg'>
         <div className='mb-5'>
             <div className='flex justify-between'>
             <h2 className='text-gray-700 text-2xl font-bold mt-3 mr-5'>{currentDate}</h2>
@@ -44,13 +52,13 @@ const TaskBox = () => {
             </Fab>
             </div>
            <p className=' text-[#12486B] font-medium'>{Object.keys(taskList).length} tasks</p>
-           {isComponentVisible && <AddTaskBox/>}
+           {isComponentVisible && <AddTaskBox taskAdd={checkisTaskAdded} Task={getTaskData} />}
         </div>
-        {Object.keys(taskList).length === 0 ? (
+        {taskList.length === 0 ? (
           <p className=' text-gray-700 text-center text-lg'>Haven't Added Any Tasks</p>
         ) : (
-          Object.entries(taskList).map(([taskName, taskTime]) => (
-            <Task key={taskName} taskName={taskName} taskTime={taskTime} doneTask={deleteTask} />
+         taskList.map((tasks) => (
+            <Task key={tasks.name} taskName={tasks.name} taskTime={tasks.time} doneTask={deleteTask} />
           ))
         )}
         

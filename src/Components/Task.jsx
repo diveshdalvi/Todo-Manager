@@ -18,15 +18,15 @@ const Task = ({taskName , taskTime ,doneTask}) => {
   const deleteTask = (taskName) => {
     doneTask(taskName)
   }
-  const time = new Date();
+ 
   const [isChecked , setIsChecked] = useState(false);
   const handleCheckBox = (e) => {
     setIsChecked(e.target.checked);
   }
-  const currentTime =time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+ 
 
   return (
-    <div className='text-gray-700 flex justify-between mt-2' key={taskName}>
+    <div className='text-gray-700 flex justify-between mt-2'>
       <Checkbox checked={isChecked} onChange={handleCheckBox}/>
         <h2 className={isChecked?' mt-2 text-gray-400 font-semibold text-lg line-through':' mt-2 text-gray-600 font-semibold text-lg underline'}>{taskName}</h2>
         <p className={isChecked?' text-gray-400 mt-2.5 line-through mx-3':' text-gray-400 mt-2.5  mx-3'}>{taskTime}</p>
