@@ -7,7 +7,9 @@ import Task from './Task';
 const TaskBox = () => {
     const currentDate = new Date().toJSON().slice(0,10);
   return (
-    <div className=' bg-white flex rounded-xl flex-col p-7 h-2/6'>
+    
+    <div>
+      <div className=' bg-white flex rounded-xl flex-col p-7'>
         <div className='mb-5'>
             <div className='flex justify-between'>
             <h2 className='text-gray-700 text-2xl font-bold mt-3 mr-5'>{currentDate}</h2>
@@ -18,6 +20,7 @@ const TaskBox = () => {
         </div>
         
         <Task/>
+    </div>
     </div>
   )
 }
