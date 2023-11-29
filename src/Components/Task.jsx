@@ -15,22 +15,24 @@ const Task = ({taskName , taskTime}) => {
     }
 
   })
-
+  const deleteTask = () => {
+    console.log('Task Deleted!')
+  }
   const time = new Date();
   const [isChecked , setIsChecked] = useState(false);
   const handleCheckBox = (e) => {
     setIsChecked(e.target.checked);
   }
   const currentTime =time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-  console.log(currentTime)
+
   return (
     <div className='text-gray-700 flex justify-between mt-2'>
       <Checkbox checked={isChecked} onChange={handleCheckBox}/>
         <h2 className={isChecked?' mt-2 text-gray-400 font-semibold text-lg line-through':' mt-2 text-gray-600 font-semibold text-lg underline'}>This is Task</h2>
         <p className={isChecked?' text-gray-400 mt-2.5 line-through mx-3':' text-gray-400 mt-2.5  mx-3'}>{currentTime}</p>
-        {isChecked?<IconButton  color ='primary' theme={theme} >
+        {isChecked?<IconButton  color ='primary' theme={theme}  onClick={deleteTask}>
           <DeleteIcon />
-        </IconButton>:<IconButton aria-label="delete" disabled color="primary">
+        </IconButton>:<IconButton aria-label="delete" disabled color="primary" >
         <DeleteIcon />
       </IconButton>}
         
